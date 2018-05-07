@@ -1,9 +1,19 @@
+.container{
+  padding-top: 24px;
+}
 span{
   font-size: 18px;
 }
+p{
+  margin-bottom: 32px;
+}
+
 
 .letter-container{
   position: relative;
+  & > div {
+    margin-bottom: 48px;
+  }
 }
 
 .point{
@@ -15,4 +25,21 @@ span{
   width: 14px;
   height: 14px;
   display: none;
+  &:hover {
+    cursor: pointer;
+    background-color: yellow;
+  }
+}
+
+.add-accord .point {
+  display: block;
+}
+.accord{
+  min-width: 19px;
+  display: inline-block;
+}
+
+.letter{
+  display: inline-block;
+  min-width: 15px;
 }

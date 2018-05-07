@@ -6,18 +6,50 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  string = '';
+  string: string;
+  accord: string;
   strings = [];
+  isAddingString: boolean;
+  isAddingAccord: boolean;
+  isEditing: boolean;
+  isShowPoints: boolean;
 
   saveString() {
-    const stringArr = [];
-
+    const string = {
+      id: '_' + Math.random().toString(36).substr(2, 9),
+      letters: [],
+      accords: []
+    };
     for (let i = 0; i < this.string.length; i++) {
-      console.log(`symbol: ${this.string[i]}`);
-      this.string[i] === ' ' ? stringArr.push('&nbsp;') : stringArr.push(this.string[i]);
+      string.accords.push('&nbsp;');
+      this.string[i] === ' ' ? string.letters.push('&nbsp;') : string.letters.push(this.string[i]);
     }
-    this.strings.push(stringArr);
+    this.strings.push(string);
     this.string = '';
+    this.isAddingString = false;
+    this.isEditing = false;
+  }
+
+  startAddingAccord() {
+    this.isAddingAccord = true;
+    this.isEditing = true;
+  }
+
+  startAddingString() {
+    this.isAddingString = true;
+    this.isEditing = true;
+  }
+
+  addAccord() {
+    this.isAddingAccord = false;
+    this.isEditing = false;
+    this.isShowPoints = true;
+  }
+
+  addAccorOnThisPoint(stringId, index) {
+    this.strings.find(i => i.id === stringId).accords[index] = this.accord;
+    this.accord = '';
+    this.isShowPoints = false;
   }
 
 }
