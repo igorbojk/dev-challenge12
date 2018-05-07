@@ -4,15 +4,11 @@
 span{
   font-size: 18px;
 }
-p{
-  margin-bottom: 32px;
-}
-
 
 .letter-container{
   position: relative;
   & > div {
-    margin-bottom: 48px;
+    margin-bottom: 16px;
   }
 }
 
@@ -35,8 +31,9 @@ p{
   display: block;
 }
 .accord{
-  min-width: 19px;
+  width: 19px;
   display: inline-block;
+  color: gray;
 }
 
 .letter{
