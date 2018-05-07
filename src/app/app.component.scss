@@ -31,12 +31,31 @@ span{
   display: block;
 }
 .accord{
-  width: 19px;
+  min-width: 19px;
   display: inline-block;
   color: gray;
+  position: relative;
+  .delete-btn{
+    color: red;
+    font-weight: bold;
+    position: absolute;
+    display: none;
+    top: -4px;
+    right: -4px;
+    cursor: pointer;
+  }
 }
-
+.editing-accord {
+  .accord{
+    &:hover{
+      .delete-btn{
+        display: block;
+      }
+    }
+  }
+}
 .letter{
   display: inline-block;
   min-width: 15px;
 }
+

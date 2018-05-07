@@ -1,4 +1,4 @@
-<div class="container" [ngClass]="{'add-accord': isShowPoints}">
+<div class="container" [ngClass]="{'add-accord': isShowPoints, 'editing-accord': !isEditing}">
   <div class="row">
     <div class="col-12">
       <div *ngIf="!isEditing">
@@ -23,19 +23,23 @@
                  id="accord"
                  placeholder=""
                  type="text"
-                 [(ngModel)]="accord">
+                 [(ngModel)]="accord"
+                 [disabled]="isShowPoints">
         </mz-input-container>
-        <button mz-button [flat]="true" class="red" (click)="addAccord()">pick position</button>
+        <button mz-button [flat]="true" class="red" (click)="addAccord()" [disabled]="!accord && isShowPoints">pick position</button>
       </div>
     </div>
     <div class="col-12" class="string-container">
       <div *ngFor="let string of strings">
         <p>
-          <span *ngFor="let accord of string.accords;" [innerHtml]="accord" class="accord"></span>
+          <span *ngFor="let accord of string.accords; let index = index;"  class="accord">
+            <span class="delete-btn" *ngIf="accord" (click)="deleteAccord(string.id, index)">X</span>
+            <span [innerHtml]="accord"></span>
+          </span>
         </p>
         <p>
           <span class="letter-container" *ngFor="let letter of string.letters; let index = index;">
-            <span class="point" (click)="addAccorOnThisPoint(string.id, (index))"></span>
+            <span class="point" (click)="addAccorOnThisPoint(string.id, index)"></span>
             <span [innerHtml]="letter" class="letter"> </span>
           </span>
         </p>

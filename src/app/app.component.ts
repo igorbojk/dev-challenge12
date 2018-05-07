@@ -13,6 +13,7 @@ export class AppComponent {
   isAddingAccord: boolean;
   isEditing: boolean;
   isShowPoints: boolean;
+  isEditingAccords: boolean;
 
   saveString() {
     const string = {
@@ -21,7 +22,7 @@ export class AppComponent {
       accords: []
     };
     for (let i = 0; i < this.string.length; i++) {
-      string.accords.push('&nbsp;');
+      string.accords.push(null);
       this.string[i] === ' ' ? string.letters.push('&nbsp;') : string.letters.push(this.string[i]);
     }
     this.strings.push(string);
@@ -41,15 +42,19 @@ export class AppComponent {
   }
 
   addAccord() {
-    this.isAddingAccord = false;
-    this.isEditing = false;
     this.isShowPoints = true;
   }
 
   addAccorOnThisPoint(stringId, index) {
     this.strings.find(i => i.id === stringId).accords[index] = this.accord;
-    this.accord = '';
+    this.accord = null;
     this.isShowPoints = false;
+    this.isAddingAccord = false;
+    this.isEditing = false;
+  }
+
+  deleteAccord(stringId, index) {
+    this.strings.find(i => i.id === stringId).accords[index] = null;
   }
 
 }
