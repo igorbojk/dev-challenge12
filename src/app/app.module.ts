@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import {MzButtonModule, MzInputModule} from 'ng2-materialize';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -10,7 +12,10 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    MzInputModule,
+    MzButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,10 +1,23 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  string = '';
+  strings = [];
+
+  saveString() {
+    const stringArr = [];
+
+    for (let i = 0; i < this.string.length; i++) {
+      console.log(`symbol: ${this.string[i]}`);
+      this.string[i] === ' ' ? stringArr.push('&nbsp;') : stringArr.push(this.string[i]);
+    }
+    this.strings.push(stringArr);
+    this.string = '';
+  }
+
 }
