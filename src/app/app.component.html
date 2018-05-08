@@ -1,66 +1,105 @@
 <div class="container" [ngClass]="{'add-accord': isShowPoints, 'editing-accord': !isEditing}">
   <div class="row">
-    <div class="col-12">
-      <mz-input-container class="m-b-24">
-        <div class="file-field input-field">
-          <input mz-input type="file" placeholder="Выберете файл" (change)="uploadSong($event)" #fileInput accept=".json">
-          <div class="file-path-wrapper">
-            <button mz-button class="image-upload-btn">
-              Выбрать
-            </button>
-          </div>
+    <div class="col s6">
+      <div class="row">
+        <div class="col s12">
+          <mz-input-container class="m-b-24">
+            <div class="file-field input-field">
+              <input mz-input type="file" placeholder="Выберете файл" (change)="uploadSong($event)" #fileInput
+                     accept=".json">
+              <div class="file-path-wrapper">
+                <button mz-button class="image-upload-btn">
+                  Выбрать
+                </button>
+                <p>Открыть из файла</p>
+              </div>
+            </div>
+          </mz-input-container>
         </div>
-      </mz-input-container>
+      </div>
+      <div class="col-12">
+        <div *ngIf="!isEditing">
+          <button mz-button [flat]="true" class="red" (click)="startAddingString()">Добавить строку</button>
+          <button mz-button [flat]="true" class="red" (click)="startAddingAccord()" [disabled]="!strings.length">Добавить аккорд</button>
+        </div>
+        <div *ngIf="isAddingString">
+          <mz-input-container>
+            <input mz-input
+                   [label]="'string'"
+                   id="string"
+                   placeholder=""
+                   type="text"
+                   [(ngModel)]="string"
+                   (keyup.enter)="saveString()">
+          </mz-input-container>
+          <button mz-button [flat]="true" class="red" (click)="saveString()">save</button>
+        </div>
+        <div *ngIf="isEditingString">
+          <mz-input-container>
+            <input mz-input
+                   [label]="'editableString'"
+                   id="editableString"
+                   placeholder=""
+                   type="text"
+                   [(ngModel)]="editableString"
+                   (keyup.enter)="saveEditingString()">
+          </mz-input-container>
+          <button mz-button [flat]="true" class="red" (click)="saveEditingString()">save</button>
+        </div>
+        <div *ngIf="isAddingAccord">
+          <mz-input-container>
+            <input mz-input
+                   [label]="'accord'"
+                   id="accord"
+                   placeholder=""
+                   type="text"
+                   [(ngModel)]="accord"
+                   [disabled]="isShowPoints">
+          </mz-input-container>
+          <button mz-button [flat]="true" class="red" (click)="addAccord()" [disabled]="!accord && isShowPoints">pick
+            position
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="col-12">
-      <div *ngIf="!isEditing">
-        <button mz-button [flat]="true" class="red" (click)="startAddingString()">Добавить строку</button>
-        <button mz-button [flat]="true" class="red" (click)="startAddingAccord()">Добавить аккорд</button>
-      </div>
-      <div *ngIf="isAddingString">
-        <mz-input-container>
-          <input mz-input
-                 [label]="'string'"
-                 id="string"
-                 placeholder=""
-                 type="text"
-                 [(ngModel)]="string">
-        </mz-input-container>
-        <button mz-button [flat]="true" class="red" (click)="saveString()">save</button>
-      </div>
-      <div *ngIf="isAddingAccord">
-        <mz-input-container>
-          <input mz-input
-                 [label]="'accord'"
-                 id="accord"
-                 placeholder=""
-                 type="text"
-                 [(ngModel)]="accord"
-                 [disabled]="isShowPoints">
-        </mz-input-container>
-        <button mz-button [flat]="true" class="red" (click)="addAccord()" [disabled]="!accord && isShowPoints">pick position</button>
-      </div>
-    </div>
-    <div class="col-12" class="string-container">
-      <div *ngFor="let string of strings">
-        <p>
-          <span *ngFor="let accord of string.accords; let index = index;"  class="accord">
+    <div class="col s6">
+      <div class="row">
+        <div class="col s12">
+          <button mz-button [flat]="true" class="red" (click)="saveFileAsJson()" *ngIf="strings.length">Сохранить json
+          </button>
+          <button mz-button [flat]="true" class="red" (click)="saveFileAsTxt()" *ngIf="strings.length">Сохранить txt
+          </button>
+        </div>
+        <div class="col s12 song-container">
+          <div *ngIf="!strings.length" class="empty-block">
+            Добавьте текст песни нажав "добавить строку"
+          </div>
+          <div *ngFor="let string of strings" class="string">
+            <p>
+          <span *ngFor="let accord of string.accords; let index = index;" class="accord">
             <span class="delete-btn" *ngIf="accord" (click)="deleteAccord(string.id, index)">X</span>
             <span [innerHtml]="accord"></span>
           </span>
-        </p>
-        <p>
+            </p>
+            <p>
           <span class="letter-container" *ngFor="let letter of string.letters; let index = index;">
             <span class="point" (click)="addAccorOnThisPoint(string.id, index)"></span>
-            <span [innerHtml]="letter" class="letter"> </span>
+            <span [innerHtml]="letter" class="letter"></span>
+
           </span>
-        </p>
+            </p>
+            <span (click)="editString(string)" class="edit-btn">
+              <i mz-icon-mdi mz-input-prefix
+                 [icon]="'pencil'">
+              </i>
+            </span>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
-  <div class="col-12">
-    <button mz-button [flat]="true" class="red" (click)="saveFileAsJson()" *ngIf="strings.length">Сохранить json</button>
-    <button mz-button [flat]="true" class="red" (click)="saveFileAsTxt()" *ngIf="strings.length">Сохранить txt</button>
-  </div>
+
+
 </div>
 

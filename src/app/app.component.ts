@@ -9,11 +9,14 @@ import {saveAs} from 'file-saver/FileSaver';
 export class AppComponent {
   string: string;
   accord: string;
+  editableString: string;
+  editableStringId: string;
   strings = [];
   isAddingString: boolean;
   isAddingAccord: boolean;
   isEditing: boolean;
   isShowPoints: boolean;
+  isEditingString: boolean;
 
   constructor() {
   }
@@ -91,5 +94,21 @@ export class AppComponent {
       event.target['value'] = null;
     };
     fr.readAsText(event.target.files[0]);
+  }
+
+  editString(string) {
+    this.editableStringId = string.id;
+    this.isEditingString = true;
+    this.editableString = string.letters.join('').replace(/&nbsp;/gi, ' ');
+    console.log(this.editableString);
+  }
+
+  saveEditingString() {
+    const string = this.strings.find(i => i.id === this.editableStringId);
+    string.letters = [];
+    for (let i = 0; i < this.editableString.length; i++) {
+      this.editableString[i] === ' ' ? string.letters.push('&nbsp;') : string.letters.push(this.editableString[i]);
+    }
+    string.accords.length = this.editableString.length;
   }
 }

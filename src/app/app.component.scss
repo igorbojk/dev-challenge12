@@ -2,8 +2,12 @@
   padding: 24px 0;
 }
 
+p{
+  margin: 0;
+}
+
 span {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .letter-container {
@@ -17,14 +21,22 @@ span {
   position: absolute;
   left: 0;
   top: -14px;
-  background: red;
-  border-radius: 50%;
   width: 14px;
   height: 14px;
   display: none;
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    border: 6px solid transparent;
+    border-top: 8px solid red;
+  }
   &:hover {
     cursor: pointer;
-    background-color: yellow;
+    &:after{
+      border-top-color: yellow;
+    }
   }
 }
 
@@ -33,9 +45,9 @@ span {
 }
 
 .accord {
-  min-width: 15px;
+  min-width: 14px;
   display: inline-block;
-  color: gray;
+  color: #921818;
   position: relative;
   .delete-btn {
     color: red;
@@ -71,4 +83,43 @@ span {
   .file-path-wrapper {
     padding: 0;
   }
+}
+
+.string{
+  position: relative;
+  &:hover{
+    .edit-btn {
+      display: block;
+    }
+  }
+}
+
+.edit-btn{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: none;
+  &:hover {
+    cursor: pointer;
+    color: white;
+  }
+}
+
+.song-container{
+  background: lightgray;
+  border-radius: 15px;
+  padding: 8px;
+  min-height: 124px;
+  position: relative;
+  margin-top: 16px;
+}
+.empty-block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
