@@ -79,13 +79,12 @@
           <span *ngFor="let accord of string.accords; let index = index;" class="accord">
             <span class="delete-btn" *ngIf="accord" (click)="deleteAccord(string.id, index)">X</span>
             <span [innerHtml]="accord"></span>
+            <span class="point" (click)="addAccorOnThisPoint(string.id, index)"></span>
           </span>
             </p>
             <p>
           <span class="letter-container" *ngFor="let letter of string.letters; let index = index;">
-            <span class="point" (click)="addAccorOnThisPoint(string.id, index)"></span>
             <span [innerHtml]="letter" class="letter"></span>
-
           </span>
             </p>
             <span (click)="editString(string)" class="edit-btn">

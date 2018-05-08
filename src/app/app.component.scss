@@ -7,11 +7,12 @@ p{
 }
 
 span {
-  font-size: 16px;
+  font-size: 1em;
 }
 
 .letter-container {
   position: relative;
+  isplay: inline-block;
   & > div {
     margin-bottom: 16px;
   }
@@ -19,7 +20,8 @@ span {
 
 .point {
   position: absolute;
-  left: 0;
+  left: 50%;
+  margin-left: -7px;
   top: -14px;
   width: 14px;
   height: 14px;
@@ -40,15 +42,22 @@ span {
   }
 }
 
-.add-accord .point {
-  display: block;
+.add-accord {
+  .point {
+    display: block;
+  }
+  .letter-container{
+    opacity: .4;
+  }
+
 }
 
 .accord {
-  min-width: 14px;
+  min-width: 0.875em;
   display: inline-block;
   color: #921818;
   position: relative;
+  letter-spacing: 4px;
   .delete-btn {
     color: red;
     font-weight: bold;
@@ -72,7 +81,7 @@ span {
 
 .letter {
   display: inline-block;
-  min-width: 10px;
+  min-width: 0.625em;
 }
 
 .file-field {
