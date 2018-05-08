@@ -46,6 +46,9 @@
       </div>
     </div>
   </div>
-
+  <div class="col-12">
+    <button mz-button [flat]="true" class="red" (click)="saveFileAsJson()" *ngIf="strings.length">Сохранить json</button>
+    <button mz-button [flat]="true" class="red" (click)="saveFileAsTxt()" *ngIf="strings.length">Сохранить txt</button>
+  </div>
 </div>
 
