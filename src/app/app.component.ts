@@ -15,7 +15,8 @@ export class AppComponent {
   isEditing: boolean;
   isShowPoints: boolean;
 
-  constructor() {}
+  constructor() {
+  }
 
   saveString() {
     const string = {
@@ -75,10 +76,20 @@ export class AppComponent {
       string.letters.forEach(letter => {
         song += letter === '&nbsp;' ? ' ' : letter;
       });
-      // song += string.letters.join('');
+      song += '\n';
     });
     const blob = new Blob([song], {type: 'text/plain;charset=utf-8'});
     saveAs(blob, 'song.txt');
   }
 
+
+  uploadSong(event) {
+    this.strings = [];
+    const fr = new FileReader();
+    fr.onload = (eventResult) => {
+      this.strings = JSON.parse(eventResult.target['result']);
+      event.target['value'] = null;
+    };
+    fr.readAsText(event.target.files[0]);
+  }
 }

@@ -1,18 +1,19 @@
-.container{
-  padding-top: 24px;
+.container {
+  padding: 24px 0;
 }
-span{
+
+span {
   font-size: 18px;
 }
 
-.letter-container{
+.letter-container {
   position: relative;
   & > div {
     margin-bottom: 16px;
   }
 }
 
-.point{
+.point {
   position: absolute;
   left: 0;
   top: -14px;
@@ -30,12 +31,13 @@ span{
 .add-accord .point {
   display: block;
 }
-.accord{
-  min-width: 19px;
+
+.accord {
+  min-width: 15px;
   display: inline-block;
   color: gray;
   position: relative;
-  .delete-btn{
+  .delete-btn {
     color: red;
     font-weight: bold;
     position: absolute;
@@ -45,17 +47,28 @@ span{
     cursor: pointer;
   }
 }
+
 .editing-accord {
-  .accord{
-    &:hover{
-      .delete-btn{
+  .accord {
+    &:hover {
+      .delete-btn {
         display: block;
       }
     }
   }
 }
-.letter{
+
+.letter {
   display: inline-block;
-  min-width: 15px;
+  min-width: 10px;
 }
 
+.file-field {
+  display: inline-block;
+  input {
+    z-index: 3;
+  }
+  .file-path-wrapper {
+    padding: 0;
+  }
+}

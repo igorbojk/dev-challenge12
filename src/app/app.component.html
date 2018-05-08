@@ -1,6 +1,18 @@
 <div class="container" [ngClass]="{'add-accord': isShowPoints, 'editing-accord': !isEditing}">
   <div class="row">
     <div class="col-12">
+      <mz-input-container class="m-b-24">
+        <div class="file-field input-field">
+          <input mz-input type="file" placeholder="Выберете файл" (change)="uploadSong($event)" #fileInput accept=".json">
+          <div class="file-path-wrapper">
+            <button mz-button class="image-upload-btn">
+              Выбрать
+            </button>
+          </div>
+        </div>
+      </mz-input-container>
+    </div>
+    <div class="col-12">
       <div *ngIf="!isEditing">
         <button mz-button [flat]="true" class="red" (click)="startAddingString()">Добавить строку</button>
         <button mz-button [flat]="true" class="red" (click)="startAddingAccord()">Добавить аккорд</button>
