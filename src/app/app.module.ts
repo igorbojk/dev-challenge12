@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import {MzButtonModule, MzIconMdiModule, MzIconModule, MzInputModule} from 'ng2-materialize';
+import {MzButtonModule, MzIconMdiModule, MzIconModule, MzInputModule, MzToastService} from 'ng2-materialize';
 import {FormsModule} from '@angular/forms';
 
 
@@ -19,7 +19,7 @@ import {FormsModule} from '@angular/forms';
     MzButtonModule,
     MzIconMdiModule
   ],
-  providers: [],
+  providers: [MzToastService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

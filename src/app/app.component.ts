@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {saveAs} from 'file-saver/FileSaver';
+import {MzToastService} from 'ng2-materialize';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
   isShowPoints: boolean;
   isEditingString: boolean;
 
-  constructor() {
+  constructor(private toastService: MzToastService) {
   }
 
   saveString() {
@@ -54,9 +55,20 @@ export class AppComponent {
 
   addAccorOnThisPoint(stringId, index) {
     const accords = this.strings.find(i => i.id === stringId).accords;
+    const length = this.accord.length;
+    let notEmpty = false;
+    for (let i = 0; i < length; i++) {
+      if (accords[index + i] !== null) {
+        notEmpty = true;
+      }
+    }
+    if (notEmpty) {
+      this.toastService.show('Нет места для аккорда такой длинны или место уже занято', 2000);
+      return;
+    }
     accords[index] = this.accord;
-    if (this.accord.length > 1) {
-      this.strings.find(i => i.id === stringId).accords.splice(index + 1, this.accord.length - 1);
+    if (length > 1) {
+      this.strings.find(i => i.id === stringId).accords.splice(index + 1, length - 1);
     }
     this.accord = null;
     this.isShowPoints = false;
@@ -65,7 +77,16 @@ export class AppComponent {
   }
 
   deleteAccord(stringId, index) {
-    this.strings.find(i => i.id === stringId).accords[index] = null;
+    const accords = this.strings.find(i => i.id === stringId).accords;
+    if (accords[index].length > 1) {
+      const newArr = [];
+      for (let j = 0; j < accords[index].length; j++) {
+        newArr.push(null);
+      }
+      accords.splice(index, 1, ...newArr);
+      return;
+    }
+    accords[index] = null;
   }
 
   saveFileAsJson() {
