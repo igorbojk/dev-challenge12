@@ -12,7 +12,6 @@ span {
 
 .letter-container {
   position: relative;
-  isplay: inline-block;
   & > div {
     margin-bottom: 16px;
   }
@@ -97,20 +96,22 @@ span {
 .string{
   position: relative;
   &:hover{
-    .edit-btn {
-      display: block;
+    .action-buttons {
+      display: inline-block;
     }
   }
 }
 
-.edit-btn{
+.action-buttons{
   position: absolute;
   right: 0;
   bottom: 0;
   display: none;
-  &:hover {
-    cursor: pointer;
-    color: white;
+  span{
+    &:hover {
+      cursor: pointer;
+      color: white;
+    }
   }
 }
 

@@ -53,7 +53,7 @@ export class AppComponent {
     this.isShowPoints = true;
   }
 
-  addAccorOnThisPoint(stringId, index) {
+  addAccordOnPoint(stringId, index) {
     const accords = this.strings.find(i => i.id === stringId).accords;
     const length = this.accord.length;
     let notEmpty = false;
@@ -127,27 +127,39 @@ export class AppComponent {
     this.editableString = string.letters.join('').replace(/&nbsp;/gi, ' ');
   }
 
-  saveEditingString() {
+  removeString(stringId) {
+    this.strings = this.strings.filter(i => i.id !== stringId);
+  }
 
+  saveEditingString() {
     const string = this.strings.find(i => i.id === this.editableStringId);
-    let counter = 0;
-    string.accords.forEach(accord => {
-      if (accord) {
-        counter += (accord.length - 1);
+    if (this.editableString.length >= string.letters.length) {
+      for (let i = 0; i < (this.editableString.length - string.letters.length); i++) {
+        string.accords.push(null);
       }
-    });
-    this.editableString.length > string.letters.length ?
-      string.accords.length = this.editableString.length - counter :
+    } else {
       string.accords.length -= string.accords.length - this.editableString.length;
+    }
 
     string.letters = [];
     for (let i = 0; i < this.editableString.length; i++) {
       this.editableString[i] === ' ' ? string.letters.push('&nbsp;') : string.letters.push(this.editableString[i]);
     }
 
-
     this.isEditingString = false;
     this.editableString = null;
     this.editableStringId = null;
+  }
+
+  cancelEditing() {
+    this.isEditingString = false;
+    this.editableString = null;
+    this.editableStringId = null;
+    this.accord = null;
+    this.isShowPoints = false;
+    this.isAddingAccord = false;
+    this.string = '';
+    this.isAddingString = false;
+    this.isEditing = false;
   }
 }

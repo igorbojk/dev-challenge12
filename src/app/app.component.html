@@ -19,8 +19,9 @@
       </div>
       <div class="col-12">
         <div *ngIf="!isEditing">
-          <button mz-button [flat]="true" class="red" (click)="startAddingString()">Добавить строку</button>
-          <button mz-button [flat]="true" class="red" (click)="startAddingAccord()" [disabled]="!strings.length">Добавить аккорд</button>
+          <button mz-button class="red" (click)="startAddingString()">Добавить строку</button>
+          <button mz-button class="red" (click)="startAddingAccord()" [disabled]="!strings.length">Добавить аккорд
+          </button>
         </div>
         <div *ngIf="isAddingString">
           <mz-input-container>
@@ -32,7 +33,8 @@
                    [(ngModel)]="string"
                    (keyup.enter)="saveString()">
           </mz-input-container>
-          <button mz-button [flat]="true" class="red" (click)="saveString()">save</button>
+          <button mz-button class="red" (click)="saveString()">save</button>
+          <button mz-button (click)="cancelEditing()">cancel</button>
         </div>
         <div *ngIf="isEditingString">
           <mz-input-container>
@@ -45,6 +47,7 @@
                    (keyup.enter)="saveEditingString()">
           </mz-input-container>
           <button mz-button [flat]="true" class="red" (click)="saveEditingString()">save</button>
+          <button mz-button (click)="cancelEditing()">cancel</button>
         </div>
         <div *ngIf="isAddingAccord">
           <mz-input-container>
@@ -56,18 +59,19 @@
                    [(ngModel)]="accord"
                    [disabled]="isShowPoints">
           </mz-input-container>
-          <button mz-button [flat]="true" class="red" (click)="addAccord()" [disabled]="!accord && isShowPoints">pick
+          <button mz-button class="red" (click)="addAccord()" [disabled]="!accord && isShowPoints">pick
             position
           </button>
+          <button mz-button (click)="cancelEditing()">cancel</button>
         </div>
       </div>
     </div>
     <div class="col s6">
       <div class="row">
         <div class="col s12">
-          <button mz-button [flat]="true" class="red" (click)="saveFileAsJson()" *ngIf="strings.length">Сохранить json
+          <button mz-button class="red" (click)="saveFileAsJson()" *ngIf="strings.length">Сохранить json
           </button>
-          <button mz-button [flat]="true" class="red" (click)="saveFileAsTxt()" *ngIf="strings.length">Сохранить txt
+          <button mz-button class="red" (click)="saveFileAsTxt()" *ngIf="strings.length">Сохранить txt
           </button>
         </div>
         <div class="col s12 song-container">
@@ -79,7 +83,7 @@
           <span *ngFor="let accord of string.accords; let index = index;" class="accord">
             <span class="delete-btn" *ngIf="accord" (click)="deleteAccord(string.id, index)">X</span>
             <span [innerHtml]="accord"></span>
-            <span class="point" (click)="addAccorOnThisPoint(string.id, index)"></span>
+            <span class="point" (click)="addAccordOnPoint(string.id, index)"></span>
           </span>
             </p>
             <p>
@@ -87,11 +91,18 @@
             <span [innerHtml]="letter" class="letter"></span>
           </span>
             </p>
-            <span (click)="editString(string)" class="edit-btn">
-              <i mz-icon-mdi mz-input-prefix
-                 [icon]="'pencil'">
-              </i>
-            </span>
+            <div class="action-buttons">
+              <span (click)="editString(string)">
+                <i mz-icon-mdi mz-input-prefix
+                   [icon]="'pencil'">
+                </i>
+              </span>
+              <span (click)="removeString(string.id)">
+                <i mz-icon-mdi mz-input-prefix
+                   [icon]="'delete'">
+                </i>
+              </span>
+            </div>
           </div>
         </div>
 
