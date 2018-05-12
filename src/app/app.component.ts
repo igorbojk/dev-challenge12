@@ -100,11 +100,11 @@ export class AppComponent {
       string.accords.forEach(accord => {
         song += accord == null ? ' ' : accord;
       });
-      song += '\n';
+      song += '\r\n';
       string.letters.forEach(letter => {
         song += letter === '&nbsp;' ? ' ' : letter;
       });
-      song += '\n';
+      song += '\r\n';
     });
     const blob = new Blob([song], {type: 'text/plain;charset=utf-8'});
     saveAs(blob, 'song.txt');
